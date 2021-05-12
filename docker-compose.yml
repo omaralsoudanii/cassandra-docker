@@ -1,0 +1,63 @@
+version: "3.6"
+services:
+  cass-node01:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: cass-node01
+    image: cass-node01
+    hostname: cass-node01
+    ports:
+      - "9042:9042"
+    volumes:
+      - cass-node01-vol:/var/lib/cassandra
+    env_file: 
+      - .env
+    networks:
+      - cass_net
+  
+  cass-node02:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: cass-node02
+    image: cass-node02
+    hostname: cass-node02
+    ports:
+      - "9043:9042"
+    volumes:
+      - cass-node02-vol:/var/lib/cassandra
+    env_file: 
+      - .env
+    networks:
+      - cass_net
+  
+  cass-node03:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: cass-node03
+    image: cass-node03
+    hostname: cass-node03
+    ports:
+      - "9044:9042"
+    volumes:
+      - cass-node03-vol:/var/lib/cassandra
+    env_file:
+      - .env
+    networks:
+      - cass_net  
+
+networks:
+    cass_net:
+
+volumes:
+  cass-node01-vol:
+    driver: local
+    name: cass-node01-vol
+  cass-node02-vol:
+    driver: local
+    name: cass-node02-vol
+  cass-node03-vol:
+    driver: local
+    name: cass-node03-vol
